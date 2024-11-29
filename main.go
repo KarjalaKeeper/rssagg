@@ -30,7 +30,8 @@ func main() {
 	}))
 	// // Создаём маршруты версии API
 	v1Router := chi.NewRouter()
-	v1Router.HandleFunc("/ready", handlerReadiness)
+	v1Router.Get("/healthz", handlerReadiness)
+	v1Router.Get("/err", handlerErr) //endpoint error
 	// Подключаем маршруты версии API к основному маршрутизатору
 	router.Mount("/v1", v1Router)
 
