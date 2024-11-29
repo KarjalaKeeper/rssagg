@@ -16,7 +16,7 @@ func respondWithJSON(w http.ResponseWriter, code int, payload interface{}) {
 		return
 	}
 	//добавляем зоголовок к HTTP запросу c типом контента и значением
-	w.Header().Add("Content-Type", "application/json") //добавляем заголовк и JSON ОТВЕТ
+	w.Header().Add("Content-Type", "application/json") //добавляем заголовк и JSON ОТВЕТО
 	w.WriteHeader(code)                                //все хорошо
 	w.Write(dat)
 }
