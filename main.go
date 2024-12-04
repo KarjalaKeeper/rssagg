@@ -59,7 +59,8 @@ func main() {
 	v1Router.Post("/users", apiCfg.handlerCreateUser) //подключение обработчика пользователя
 	// Подключаем маршруты версии API к основному маршрутизатору
 	router.Mount("/v1", v1Router)
-
+	//подключаем handlerGetUser
+	v1Router.Get("/users", apiCfg.handlerGetUser)
 	// Создаём HTTP-сервер
 	srv := &http.Server{
 		Handler: router, //назначаем маршрутизатор обработчиком запросов
