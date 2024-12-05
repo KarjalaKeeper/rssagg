@@ -66,6 +66,9 @@ func main() {
 	//подключаем handlerCreateFeed
 	v1Router.Post("/feeds", apiCfg.middlewareAuth(apiCfg.handlerCreateFeed))
 
+	//подключаем handlerGetFeeds
+	v1Router.Get("/feeds", apiCfg.handlerGetFeeds)
+
 	// Подключаем маршруты версии API к основному маршрутизатору
 	router.Mount("/v1", v1Router)
 
