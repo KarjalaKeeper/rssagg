@@ -17,6 +17,7 @@ type apiConfig struct {
 }
 
 func main() {
+
 	// Загружаем переменные окружения из .env
 	godotenv.Load(".env")
 
@@ -52,15 +53,22 @@ func main() {
 		AllowCredentials: false,
 		MaxAge:           300,
 	}))
+
 	// // Создаём маршруты версии API
 	v1Router := chi.NewRouter()
 	v1Router.Get("/healthz", handlerReadiness)
 	v1Router.Get("/err", handlerErr)                  //endpoint error
 	v1Router.Post("/users", apiCfg.handlerCreateUser) //подключение обработчика пользователя
+
+	//подключаем handlerGetUser
+	v1Router.Get("/users", apiCfg.middlewareAuth(apiCfg.handlerGetUser))
+
+	//подключаем handlerCreateFeed
+	v1Router.Post("/feeds", apiCfg.middlewareAuth(apiCfg.handlerCreateFeed))
+
 	// Подключаем маршруты версии API к основному маршрутизатору
 	router.Mount("/v1", v1Router)
-	//подключаем handlerGetUser
-	v1Router.Get("/users", apiCfg.handlerGetUser)
+
 	// Создаём HTTP-сервер
 	srv := &http.Server{
 		Handler: router, //назначаем маршрутизатор обработчиком запросов
