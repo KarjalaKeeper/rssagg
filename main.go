@@ -3,6 +3,7 @@ package main
 import (
 	"MainProject/internal/database"
 	"database/sql"
+	"fmt"
 	"github.com/go-chi/chi"
 	"github.com/go-chi/cors"
 	"github.com/joho/godotenv"
@@ -17,6 +18,12 @@ type apiConfig struct {
 }
 
 func main() {
+
+	feed, err := urlToFeed("https://techcrunch.com/feed/")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(feed)
 
 	// Загружаем переменные окружения из .env
 	godotenv.Load(".env")
