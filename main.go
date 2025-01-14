@@ -79,6 +79,9 @@ func main() {
 	//подключаем handlerGetFeeds
 	v1Router.Get("/feeds", apiCfg.handlerGetFeeds)
 
+	// подключаем handlerGetPostsForUser
+	v1Router.Get("/posts", apiCfg.middlewareAuth(apiCfg.handlerGetPostsForUser))
+
 	//подключаем handlerCreateFeedFollow
 	v1Router.Post("/feed_follows", apiCfg.middlewareAuth(apiCfg.handlerCreateFeedFollow))
 
